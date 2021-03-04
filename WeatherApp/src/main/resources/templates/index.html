@@ -42,9 +42,16 @@
                                 <img th:src="@{${'http://openweathermap.org/img/w/'
                 + data.weather[0].get('icon') + '.png'}}"></p>
 
+
                         </div>
                     </div>
                 </div>
+                <h4>Recent Searches</h4>
+                <table class="table table-striped">
+                    <tr th:each="search : ${searches}">
+                        <td th:text="${search}"></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

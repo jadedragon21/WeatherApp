@@ -2,6 +2,7 @@ package com.tts.WeatherApp.controller;
 
 import com.tts.WeatherApp.model.Request;
 import com.tts.WeatherApp.model.Response;
+import com.tts.WeatherApp.repo.ZipCodeRepository;
 import com.tts.WeatherApp.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class WeatherController {
     @Autowired
     private WeatherService weatherService;
+
+//    @Autowired
+//    private ZipCodeRepository zipCodeRepository;
 
     //we're hardcoding the zip code that gets passed into the API
     //change this later
@@ -35,6 +39,7 @@ public class WeatherController {
     public String postIndex(Request request, Model model) {
         Response data = weatherService.getForecast(request.getZipCode());
         model.addAttribute("data", data);
+//        model.addAttribute("search", request);
         return "index";
     }
 }
