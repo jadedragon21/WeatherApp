@@ -1,24 +1,40 @@
 package com.tts.WeatherApp.controller;
 
+import com.tts.WeatherApp.model.Request;
 import com.tts.WeatherApp.model.Response;
 import com.tts.WeatherApp.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class WeatherController {
     @Autowired
     private WeatherService weatherService;
 
-    //we're hardcoing the zip code that gets passed into the API
+    //we're hardcoding the zip code that gets passed into the API
     //change this later
+    //    @GetMapping
+    //    public String getIndex(Model model) {
+    //        Response response = weatherService.getForecast("43220");
+    //        model.addAttribute("data", response);
+    //        return "index";
+    //    }
+
+    //changed to this below slide 30
     @GetMapping
     public String getIndex(Model model) {
-        Response response = weatherService.getForecast("43220");
-        model.addAttribute("data", response);
+        model.addAttribute("request", new Request());
         return "index";
     }
-
+    //create a new method to handle the POST request from the form, and
+    // display the index.html page with weather data on it slide 31
+    @PostMapping
+    public String postIndex(Request request, Model model) {
+        Response data = weatherService.getForecast(request.getZipCode());
+        model.addAttribute("data", data);
+        return "index";
+    }
 }
